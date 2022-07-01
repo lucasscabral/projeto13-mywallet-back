@@ -1,16 +1,7 @@
-import { MongoClient, ObjectId } from 'mongodb'
-import joi from 'joi'
 import { v4 as uuid } from 'uuid'
 import bcrypt from 'bcrypt'
-import dotenv from 'dotenv'
-dotenv.config()
 
-const mongoClient = new MongoClient(process.env.MONGO_URI)
-let db
-
-mongoClient.connect().then(() => {
-  db = mongoClient.db('MyWalletDB')
-})
+import db from '../mongoDB/conexcaoMongo.js'
 
 export async function getMovimentacao(req, res) {
   const { authorization } = req.headers
