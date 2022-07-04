@@ -20,4 +20,9 @@ export const loginSchema = joi.object({
   password: joi.required()
 })
 
-export default { cadastroSchema, loginSchema }
+export const entradaSaida = joi.object({
+  valor: joi.number().required(),
+  descricao: joi.string().required()
+})
+
+export default { cadastroSchema, loginSchema, entradaSaida }

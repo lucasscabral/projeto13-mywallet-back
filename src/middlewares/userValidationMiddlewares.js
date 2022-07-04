@@ -1,8 +1,13 @@
-import { cadastroSchema, loginSchema } from '../validateJoi/validateUser.js'
+import {
+  cadastroSchema,
+  loginSchema,
+  entradaSaida
+} from '../validateJoi/validateUser.js'
+import dotenv from 'dotenv'
+dotenv.config()
 
 export async function validateSignUp(req, res, next) {
   const dadosCadastro = req.body
-  console.log(dadosCadastro)
   const validou = cadastroSchema.validate(dadosCadastro)
   if (validou.error) {
     res
@@ -36,5 +41,15 @@ export async function validateSignIn(req, res, next) {
 
   next()
 }
+export async function validateMovimentacoes(req, res, next) {
+  const { authorization } = req.headers
+  const token = authorization?.replace('Bearer ', '')
+  const dadosEntradaSaida = entradaSaida.validate(req.body)
 
-export default { validateSignUp, validateSignIn }
+  if (!token) return res.sendStatus(401)
+  if (dadosEntradaSaida.error)
+    return res.status(401).send('Todos os campos são obrigatórios')
+  res.locals.token = token
+  res.locals.valorSaida = req.body
+  next()
+}

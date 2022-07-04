@@ -8,4 +8,4 @@ mongoClient.connect().then(() => {
   db = mongoClient.db('MyWalletDB')
 })
 
-export default db
+export { db }
