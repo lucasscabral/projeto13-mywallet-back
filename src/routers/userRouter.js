@@ -8,7 +8,7 @@ import { Router } from 'express'
 
 const userRouter = Router()
 
-userRouter.get('/movimentacao', validateMovimentacoes, getMovimentacao)
+userRouter.get('/movimentacao', getMovimentacao)
 userRouter.post('/entrada', validateMovimentacoes, postEntrada)
 userRouter.post('/saida', validateMovimentacoes, postSaida)
 
